@@ -7,11 +7,11 @@
 
 <h3>Group name</h3>
 
-Absent-Minded Professors
+Seeds
 
 <h3>Research question</h3>
 
-Looking at the state-wide December 1st counts for a given year and grade level, how many students were there for each primary disability type?
+For a given major, what are the top 10 courses with the most seats open?
 
 <h3>Initial results</h3>
 
@@ -19,62 +19,60 @@ Looking at the state-wide December 1st counts for a given year and grade level, 
     <tr>
         <td colspan="3" bgcolor="lightyellow">
 <pre>
-    SELECT dis_type, dec1_cnt
-    FROM deccnt_state(2012, 12)
-    ORDER BY dec1_cnt DESC, dis_type
+    SELECT *
+    FROM avg_seats_left('CS')
+    WHERE avg_left > 0
+    ORDER BY avg_left DESC
+    LIMIT 10;
 </pre>
         </td>
     </tr>
     <tr>
-        <th>Disability Type</th>
-        <th>Dec 1st Count</th>
+        <th>Course Number</th>
+        <th>Avg. Seats Left</th>
         <td rowspan="12">
             <div id="piechart" style="width: 500px; height: 300px;"></div>
         </td>
     </tr>
     <tr>
-        <td>SLD</td>
-        <td>4833</td>
+        <td>597</td>
+        <td>35.0</td>
     </tr>
     <tr>
-        <td>OHI</td>
-        <td>2330</td>
+        <td>271</td>
+        <td>30.5</td>
     </tr>
     <tr>
-        <td>ID</td>
-        <td>1467</td>
+        <td>391</td>
+        <td>22.0</td>
     </tr>
     <tr>
-        <td>AUT</td>
-        <td>1073</td>
+        <td>496</td>
+        <td>21.4</td>
     </tr>
     <tr>
-        <td>EMN</td>
-        <td>1033</td>
+        <td>372</td>
+        <td>21.0</td>
     </tr>
     <tr>
-        <td>MD</td>
-        <td>505</td>
+        <td>341</td>
+        <td>20.68</td>
     </tr>
     <tr>
-        <td>HI</td>
-        <td>120</td>
+        <td>309</td>
+        <td>20.0</td>
     </tr>
     <tr>
-        <td>SLI</td>
-        <td>100</td>
+        <td>382</td>
+        <td>19.8</td>
     </tr>
     <tr>
-        <td>OI</td>
-        <td>67</td>
+        <td>263</td>
+        <td>18.87</td>
     </tr>
     <tr>
-        <td>TBI</td>
-        <td>49</td>
-    </tr>
-    <tr>
-        <td>VI</td>
-        <td>44</td>
+        <td>470</td>
+        <td>18.8</td>
     </tr>
 </table>
 
@@ -84,25 +82,24 @@ Looking at the state-wide December 1st counts for a given year and grade level, 
   function drawChart() {
 
     var data = google.visualization.arrayToDataTable([
-      ["Disability Type", "Dec 1st Count"],
-      ["SLD", 4833],
-      ["OHI", 2330],
-      ["ID", 1467],
-      ["AUT", 1073],
-      ["EMN", 1033],
-      ["MD", 505],
-      ["HI", 120],
-      ["SLI", 100],
-      ["OI", 67],
-      ["TBI", 49],
-      ["VI", 44],
+        ["Course Number", "Avg. Seats Left"],
+        ["597", 35.0000000000000000],
+        ["271", 30.5000000000000000],
+        ["391", 22.0000000000000000],
+        ["496", 21.4000000000000000],
+        ["372", 21.0000000000000000],
+        ["341", 20.6800000000000000],
+        ["309", 20.0000000000000000],
+        ["382", 19.8000000000000000],
+        ["263", 18.8666666666666667],
+        ["470", 18.8000000000000000],
     ]);
 
     var options = {
       chartArea: {width:'90%', height:'90%'},
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var chart = new google.visualization.BarChart(document.getElementById('piechart'));
 
     chart.draw(data, options);
   }

@@ -14,6 +14,7 @@ LIMIT 10;
 --find all data for course that hasnt filled up
 --maybe get rid of where clause and calc % of seats left available
 --change where to (enrl_cap - enrolled)
+--i tried this below kinda
 
 SELECT term, subject, number, enrolled, enrl_cap
 FROM (
@@ -25,6 +26,16 @@ WHERE enrolled < enrl_cap
 ORDER BY term;
 
 
+
+-- this is avg number of seats left per class
+
+SELECT number, avg(enrl_cap - enrolled) as avg_left
+FROM (
+	SELECT distinct term, nbr, subject, number, enrolled, enrl_cap
+	FROM enrollment
+	WHERE subject = 'CS'
+	AND enrl_cap > 0) sub
+GRPU BY number
 
 --garbage for testing
 
