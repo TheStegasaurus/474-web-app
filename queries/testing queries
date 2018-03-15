@@ -1,0 +1,34 @@
+--top 10 most enrolled courses by major
+
+SELECT subject, number, sum(enrolled)
+FROM (
+    SELECT distinct term, nbr, subject, number, enrolled
+    FROM enrollment
+    WHERE subject = 'CS') sub
+GROUP BY subject, number
+ORDER BY sum DESC
+LIMIT 10;
+
+
+
+--find all data for course that hasnt filled up
+--maybe get rid of where clause and calc % of seats left available
+--change where to (enrl_cap - enrolled)
+
+SELECT term, subject, number, enrolled, enrl_cap
+FROM (
+    SELECT distinct term, nbr, subject, number, enrolled, enrl_cap
+    FROM enrollment
+    WHERE subject = 'CS'
+	AND number = '159') sub
+WHERE enrolled < enrl_cap
+ORDER BY term;
+
+
+
+--garbage for testing
+
+select *
+from enrollment
+where subject = 'CS'
+and number = '497'

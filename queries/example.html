@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+<h3>Group name</h3>
+
+Absent-Minded Professors
+
+<h3>Research question</h3>
+
+Looking at the state-wide December 1st counts for a given year and grade level, how many students were there for each primary disability type?
+
+<h3>Initial results</h3>
+
+<table border="1" cellpadding="3">
+    <tr>
+        <td colspan="3" bgcolor="lightyellow">
+<pre>
+    SELECT dis_type, dec1_cnt
+    FROM deccnt_state(2012, 12)
+    ORDER BY dec1_cnt DESC, dis_type
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <th>Disability Type</th>
+        <th>Dec 1st Count</th>
+        <td rowspan="12">
+            <div id="piechart" style="width: 500px; height: 300px;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>SLD</td>
+        <td>4833</td>
+    </tr>
+    <tr>
+        <td>OHI</td>
+        <td>2330</td>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>1467</td>
+    </tr>
+    <tr>
+        <td>AUT</td>
+        <td>1073</td>
+    </tr>
+    <tr>
+        <td>EMN</td>
+        <td>1033</td>
+    </tr>
+    <tr>
+        <td>MD</td>
+        <td>505</td>
+    </tr>
+    <tr>
+        <td>HI</td>
+        <td>120</td>
+    </tr>
+    <tr>
+        <td>SLI</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td>OI</td>
+        <td>67</td>
+    </tr>
+    <tr>
+        <td>TBI</td>
+        <td>49</td>
+    </tr>
+    <tr>
+        <td>VI</td>
+        <td>44</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ["Disability Type", "Dec 1st Count"],
+      ["SLD", 4833],
+      ["OHI", 2330],
+      ["ID", 1467],
+      ["AUT", 1073],
+      ["EMN", 1033],
+      ["MD", 505],
+      ["HI", 120],
+      ["SLI", 100],
+      ["OI", 67],
+      ["TBI", 49],
+      ["VI", 44],
+    ]);
+
+    var options = {
+      chartArea: {width:'90%', height:'90%'},
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+</body>
+</html>
