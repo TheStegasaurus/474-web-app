@@ -5,13 +5,13 @@
 DROP FUNCTION IF EXISTS major_course(subject text);
 
 CREATE FUNCTION major_course(subject text)
-RETURNS TABLE(Name text, Prefix text, Code text, Description text) AS $$
+RETURNS TABLE(prefix text, code text, name text, description text) AS $$
 
-    SELECT "Prefix", "Code", "Name", "Description (Rendered no HTML)" AS "Description" 
-    FROM ugcatalog 
-    WHERE "Prefix" = $1 
-    ORDER BY "Code";
+    SELECT prefix, code, name, description
+    FROM catalog 
+    WHERE prefix = $1
+    ORDER BY code;
 
 $$ LANGUAGE SQL STABLE STRICT;
 
-ALTER FNCTION major_course(subject text) OWNER TO seeds;
+ALTER FUNCTION major_course(subject text) OWNER TO seeds;
