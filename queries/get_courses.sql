@@ -7,7 +7,10 @@ DROP FUNCTION IF EXISTS major_course(subject text);
 CREATE FUNCTION major_course(subject text)
 RETURNS TABLE(Name text, Prefix text, Code text, Description text) AS $$
 
-    SELECT "Prefix", "Code", "Name", "Description (Rendered no HTML)" AS "Description" FROM ugcatalog WHERE "Prefix" = $1 ORDER BY "Code";
+    SELECT "Prefix", "Code", "Name", "Description (Rendered no HTML)" AS "Description" 
+    FROM ugcatalog 
+    WHERE "Prefix" = $1 
+    ORDER BY "Code";
 
 $$ LANGUAGE SQL STABLE STRICT;
 
