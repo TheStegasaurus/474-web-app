@@ -1,4 +1,4 @@
-\copy ( SELECT  Prefix, Code, Prerequisite FROM catalog) To 'test.csv' With CSV DELIMITER '|';
+\copy ( SELECT  Prefix, Code, Prerequisite FROM catalog) To 'temp.csv' With CSV DELIMITER '|';
 
 
 run this in

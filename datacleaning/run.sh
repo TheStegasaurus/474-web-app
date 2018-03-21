@@ -1,6 +1,3 @@
-rm -f clean.class, output.txt
+rm -f clean.class, prereq.csv
 javac clean.java
-java clean < test.csv
-echo
-cat output.txt
-echo
+java clean < temp.csv

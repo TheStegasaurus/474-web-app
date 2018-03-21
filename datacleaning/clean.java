@@ -4,48 +4,40 @@ import java.io.Writer;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class clean {
-    public static void main(String[] args) throws IOException {
-
-        //Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream ("output.txt"), "utf-8"));
-
-        //writer.write("SDADAS\n");
-        //writer.close();
-
-
+    public static void main(String[] args) throws IOException
+    {
         Scanner scan = new Scanner(System.in); //TODO change this to static file for error handling
 
-//String regex = "[a-zA-Z]{3,4} \\d{3}?";
-Pattern regex = Pattern.compile("[a-zA-Z]{3,4} \\d{3}?");
+        //To write the output
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream ("prereq.csv"), "utf-8"));
 
-        HashMap<String, HashMap<String, String>> prefixMap = new HashMap<String, HashMap<String, String>>();
-int x = 0;
-        while (x < 20)
+        //The regex to find a prefix followed by a number
+        Pattern regex = Pattern.compile("[a-zA-Z]{3,4} \\d{3}?");
+
+        while (scan.hasNextLine())
         {
+            //Split on |
             String[] line = scan.nextLine().split("\\|");
+
+            //Checks if prereq is not null
             if (line.length < 3)
                 continue;
 
-
-            /*for (String i : line)
-                System.out.print(i + "|");
-            System.out.println();*/
- Matcher m = regex.matcher(line[2]);
-    while (m.find()) {
-    System.out.print(m.group(0) + "|");
-}
-System.out.println();
-//String cleanWord = line[2].replaceAll(regex, "FOUND");
-
- //           System.out.println(cleanWord);
-
-            x++;
+            //Matches the line to the regex
+            Matcher m = regex.matcher(line[2]);
+            //Loops through each match in the line
+            while (m.find()) 
+            {
+                //Writes each prereq as a new line in the output
+                String[] prereq = m.group(0).split(" ");
+                writer.write(line[0] + "|" + line[1] + "|" + prereq[0] + "|" + prereq[1] + "\n");
+            }
         }
-
-
+        scan.close();
+        writer.close();
     }
 }
