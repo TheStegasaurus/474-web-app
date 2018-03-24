@@ -20,7 +20,7 @@ For a given major, what are the top 10 courses with the most seats open?
         <td colspan="3" bgcolor="lightyellow">
 <pre>
     SELECT *
-    FROM avg_seats_left('CS')
+    FROM avg_seats_left('HIST')
     WHERE avg_left > 0
     ORDER BY avg_left DESC
     LIMIT 10;
