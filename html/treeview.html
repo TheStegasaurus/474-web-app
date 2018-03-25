@@ -75,12 +75,23 @@
 
     <div class="container-fluid">
       <h1>Search by Course/Major</h1>
-      <input type="text" class="form-control" placeholder="Search">
+       <div class="row">
+        <div class="col-xs-10 col-md-10">
+          <div class="input-group">
+       <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
+       <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+            </button>
+       </div>
+       </div>
+        </div>
+      </div>
       <br>
     </div>
     
     <ul class="nav nav-tabs" id="tabs">
-      <li role="presentation"><a href="index.html">List View</a></li>
+      <li role="presentation"><a href="listview.html">List View</a></li>
       <li role="presentation" class="active"><a href="#">Tree View</a></li>
     </ul>
 

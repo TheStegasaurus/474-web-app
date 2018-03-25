@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    
+    <title>Course Catalog</title>
+    <style>
+
+        
+        h2 h3{
+            font-weight: bold;
+        }
+        
+        body{
+            padding: 50px  200px;
+        }
+
+        #tabs{
+            padding-left: 16px;
+        }
+        #divider{
+            background-color:#000;
+    
+        }
+        #vl {
+            border-right: 4px solid black;
+            height: 1000px;
+            width: 1em;
+        }
+        hr {
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+        }
+        .course-list{
+            overflow: auto;
+        }
+    
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <h1>Search by Course/Major</h1>
+          <div class="row">
+            <div class="col-xs-10 col-md-10">
+              <div class="input-group">
+           <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
+           <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+                </button>
+           </div>
+           </div>
+            </div>
+          </div>
+      <br>
+    </div>
+    
+    <ul class="nav nav-tabs" id="tabs">
+      <li role="presentation" class="active"><a href="#">List View</a></li>
+      <li role="presentation"><a href="treeview.html">Tree View</a></li>
+    </ul>
+
+
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-md-7"><h2>MAJOR:</h2><hr>
+         <div class="course-list">
+            <br>
+            <ul>
+              <li>CS 149. Introduction to Programming 3.00</li>
+              <li>CS 159. Advanced Programming 3.00</li>
+              <li>CS 227. Discrete Structures I 3.00</li>
+              <li>CS 240. Algorithms and Data Structures 3.00</li>
+              <li>CS 261. Computer Systems I 3.00</li>
+              <li>CS 327. Discrete Structures II 3.00</li>
+              <li>CS 345. Software Engineering 3.00</li>
+              <li>CS 361. Computer Systems II 3.00</li>
+              <li>CS 430. Programming Languages 3.00</li>
+              <li>CS 474. Database Design and Application 3.00</li>
+              <li>CS 432. Compilers 3.00</li>
+              <li>CS 450. Operating Systems 3.00</li>
+              <li>CS 470. Parallel and Distributed Systems 3.00</li>
+            </ul>
+        </div>
+      </div>        
+
+      <div class="col-xs-1 col-md-1" id="vl"></div>
+      <div class="col-xs-6 col-md-4"><h2>CLASS: </h2><hr>
+        <br>
+        Lorem ipsum dolor sit amet, cu has sonet choro alterum, pro errem iriure id, dolores persequeris usu et. Has munere recusabo id, ut cum zril disputando mediocritatem. Malorum repudiandae ad sea, ei pro movet oportere quaerendum, id tempor commune assentior eos. Ei per scaevola gloriatur voluptatibus. Vix fabulas theophrastus id, his postea officiis ad, veri eligendi gubergren vis in. Sed virtute detracto ei, congue scaevola quo ex, mazim scripserit instructior mel ne. Cum at enim partem, tacimates principes adipiscing id pri.
+
+      </div>
+    </div>
+
+  </body>
+
+</html>
