@@ -43,6 +43,17 @@ canvas{
   vertical-align:bottom;
 }
 
+
+.btext{
+    color: #f9f3f4;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    width: 100%;
+    line-height: 0.4em;
+}
+
+
 /* ---- particles.js container ---- */
 
 #particles-js{
@@ -71,21 +82,18 @@ canvas{
     margin: 0  auto;
 }
 
-.aa_txt
-{
-    text-align: center;
-    color:  #000;
+.btn{
+    color: #fff;
+    border: #fff 1px solid;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    line-height: 4em;
 }
 
-.aa_inner
-{
-    padding: 0 2em;
-    text-transform: uppercase;
-    font-size:30px;
+.btn:hover{
+    color: #b19295;
+    border: #fff 1px solid;
 }
 
-#btns
-{
-    text-align: center;
-}
 
