@@ -1,0 +1,9 @@
+LOAD DATA INFILE '/var/lib/mysql-files/temp.csv' INTO TABLE catalog FIELDS TERMINATED BY  '|' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+
+move into /var/lib/mysql-files/
+
+
+
+
+psql -h data.cs.jmu.edu seeds -c "\copy (SELECT * FROM catalog) To 'temp.csv' With CSV DELIMITER '|';"

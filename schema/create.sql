@@ -39,3 +39,17 @@ CREATE TABLE catalog (
 ALTER TABLE catalog OWNER TO seeds;
 
 COMMENT ON TABLE catalog IS 'Course catalog information';
+
+
+DROP TABLE IF EXISTS prereq;
+
+CREATE TABLE prereq (
+    prefix text NOT NULL,
+    code text NOT NULL,
+    req_prefix text NOT NULL,
+    req_code text NOT NULL
+);
+
+ALTER TABLE prereq OWNER TO seeds;
+
+COMMENT ON TABLE prereq IS 'Course prerequisite information';

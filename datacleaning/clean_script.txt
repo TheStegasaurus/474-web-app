@@ -1,5 +1,0 @@
-\copy ( SELECT  Prefix, Code, Prerequisite FROM catalog) To 'temp.csv' With CSV DELIMITER '|';
-
-
-run this in
-psql -h data.cs.jmu.edu seeds
