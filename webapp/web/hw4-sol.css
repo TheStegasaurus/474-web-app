@@ -1,0 +1,29 @@
+/*
+ * Name: SAMPLE SOLUTIONS
+ */
+
+.title {
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+h1 {
+    font-size: 15pt;
+    padding-top: 5px;
+}
+
+pre {
+    background-color: whitesmoke;
+}
+
+th {
+    padding: 5px;
+}
+
+table .even {
+}
+
+table .odd {
+    background-color: ghostwhite;
+}

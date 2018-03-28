@@ -8,7 +8,7 @@ CREATE FUNCTION major_course(subject text)
 RETURNS TABLE(prefix text, code text, name text, description text) AS $$
 
     SELECT prefix, code, name, description
-    FROM catalog 
+    FROM catalog
     WHERE prefix = $1
     ORDER BY code;
 

@@ -1,0 +1,173 @@
+<!--
+   Name: SAMPLE SOLUTIONS
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Harrisonburg High School</title>
+    <link href="hw4-sol.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+<div class="title">Harrisonburg High School</div>
+
+<h1>Query</h1>
+
+<pre>
+  SELECT
+    sch_year, subject, avg_score
+  FROM sol_test_data
+  WHERE TRUE
+    -- Harrisonburg High School
+    AND div_num = 113
+    AND sch_num = 12
+    -- all races, genders, etc.
+    AND race = 'ALL'
+    AND gender = 'ALL'
+    AND disabil = 'ALL'
+    AND lep = 'ALL'
+    AND disadva = 'ALL'
+    -- all tests (by subject)
+    AND test_name = 'ALL'
+    AND test_level = 'ALL'
+  ORDER BY sch_year, subject
+</pre>
+
+<h1>Results</h1>
+<!-- Created with http://www.convertcsv.com/csv-to-html.htm -->
+
+<table style="text-align: center">
+<thead>
+    <tr bgcolor="lightyellow">
+        <th>sch_year</th>
+        <th>ENGR</th>
+        <th>ENGW</th>
+        <th>HIST</th>
+        <th>MATH</th>
+        <th>SCI</th>
+    </tr>
+</thead>
+<tbody>
+    <tr class="even">
+        <td>2006</td>
+        <td>479</td>
+        <td>467</td>
+        <td>481</td>
+        <td>470</td>
+        <td>448</td>
+    </tr>
+    <tr class="odd">
+        <td>2007</td>
+        <td>480</td>
+        <td>472</td>
+        <td>483</td>
+        <td>472</td>
+        <td>453</td>
+    </tr>
+    <tr class="even">
+        <td>2008</td>
+        <td>476</td>
+        <td>466</td>
+        <td>481</td>
+        <td>462</td>
+        <td>451</td>
+    </tr>
+    <tr class="odd">
+        <td>2009</td>
+        <td>472</td>
+        <td>470</td>
+        <td>482</td>
+        <td>459</td>
+        <td>457</td>
+    </tr>
+    <tr class="even">
+        <td>2010</td>
+        <td>474</td>
+        <td>473</td>
+        <td>435</td>
+        <td>451</td>
+        <td>449</td>
+    </tr>
+    <tr class="odd">
+        <td>2011</td>
+        <td>471</td>
+        <td>461</td>
+        <td>434</td>
+        <td>414</td>
+        <td>448</td>
+    </tr>
+    <tr class="even">
+        <td>2012</td>
+        <td>422</td>
+        <td>446</td>
+        <td>433</td>
+        <td>419</td>
+        <td>428</td>
+    </tr>
+    <tr class="odd">
+        <td>2013</td>
+        <td>424</td>
+        <td>435</td>
+        <td>443</td>
+        <td>422</td>
+        <td>439</td>
+    </tr>
+    <tr class="even">
+        <td>2014</td>
+        <td>421</td>
+        <td>429</td>
+        <td>444</td>
+        <td>429</td>
+        <td>438</td>
+    </tr>
+</tbody>
+</table>
+
+<h1>Chart</h1>
+
+<div id="chart_div" style="width: 700px; height: 350px;"></div>
+
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'sch_year');
+      data.addColumn('number', 'ENGR');
+      data.addColumn('number', 'ENGW');
+      data.addColumn('number', 'HIST');
+      data.addColumn('number', 'MATH');
+      data.addColumn('number', 'SCI');
+
+      data.addRows([
+        ["2006", 479, 467, 481, 470, 448],
+        ["2007", 480, 472, 483, 472, 453],
+        ["2008", 476, 466, 481, 462, 451],
+        ["2009", 472, 470, 482, 459, 457],
+        ["2010", 474, 473, 435, 451, 449],
+        ["2011", 471, 461, 434, 414, 448],
+        ["2012", 422, 446, 433, 419, 428],
+        ["2013", 424, 435, 443, 422, 439],
+        ["2014", 421, 429, 444, 429, 438],
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Year'
+        },
+        vAxis: {
+          title: 'Score'
+        },
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+</script>
+
+</body>
+</html>
