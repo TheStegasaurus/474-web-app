@@ -10,8 +10,13 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<!-- https://stackoverflow.com/questions/30281258/how-to-use-semantic-ui-cdn -->
+
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'>
+    </script>
+    <script src='/js/classes.js'></script>
     
     <title>Course Catalog</title>
     
@@ -24,12 +29,18 @@
           <div class="row">
             <div class="col-xs-10 col-md-10">
               <div class="input-group">
+                
+
+                
            <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
            <div class="input-group-btn">
-                <button class="btn btn-primary" type="submit">
+                <button id="submit_btn" class="btn btn-primary" type="submit">
                 <span class="glyphicon glyphicon-search"></span>
                 </button>
            </div>
+
+
+           
            </div>
             </div>
           </div>
@@ -41,26 +52,12 @@
       <li role="presentation"><a href="treeview.html">Tree View</a></li>
     </ul>
 
-
     <br>
     <div class="row">
-      <div class="col-xs-12 col-md-7"><h2>MAJOR:</h2><hr>
+      <div id="major_text" class="col-xs-12 col-md-7"><h2>MAJOR:</h2><hr>
          <div class="course-list">
             <br>
-            <ul>
-              <li>CS 149. Introduction to Programming 3.00</li>
-              <li>CS 159. Advanced Programming 3.00</li>
-              <li>CS 227. Discrete Structures I 3.00</li>
-              <li>CS 240. Algorithms and Data Structures 3.00</li>
-              <li>CS 261. Computer Systems I 3.00</li>
-              <li>CS 327. Discrete Structures II 3.00</li>
-              <li>CS 345. Software Engineering 3.00</li>
-              <li>CS 361. Computer Systems II 3.00</li>
-              <li>CS 430. Programming Languages 3.00</li>
-              <li>CS 474. Database Design and Application 3.00</li>
-              <li>CS 432. Compilers 3.00</li>
-              <li>CS 450. Operating Systems 3.00</li>
-              <li>CS 470. Parallel and Distributed Systems 3.00</li>
+            <ul id="class_list">
             </ul>
         </div>
       </div>        
