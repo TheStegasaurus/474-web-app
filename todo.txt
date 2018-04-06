@@ -15,3 +15,8 @@ Create sql script the create table that has prefix, actual name (EX: CS, Compute
 Create tree dynamically
 
 FULL TEXT SEARCH!!!!!!!!!!!!
+
+
+
+
+jordan - only add prereqs that are in the same major
