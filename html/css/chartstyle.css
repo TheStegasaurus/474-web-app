@@ -4,14 +4,26 @@
   stroke-width: 3px;
 }
 
-.node text { font: 12px sans-serif; }
+.node text { 
+ pointer-events: none;
+ font: 12px sans-serif;
+}
 
 .link {
   fill: none;
-  stroke: #ccc;
+  stroke: #000;
   stroke-width: 2px;
 }
 
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+line {
+  stroke: #999;
+  stroke-width: 1.5px;
+}
 
 h2 h3{
     font-weight: bold;
