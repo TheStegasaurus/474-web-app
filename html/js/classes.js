@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 //The on-click function for the class list
 $("#major_text").on('click','li',function (){
-  var id = $(this).attr('id').split(" ");
+  var id = $(this).attr('name').split(" ");
    // alert(id[0] + " " + id[1]);
     
     $.ajax({
@@ -70,7 +70,7 @@ function removeList() {
 //Sets the bullets to contain the info from the search
 function setClasses (classes) {
     $.each(classes, function(index, item) {
-      $("#class_list").append('<li id="' + item.Prefix + ' ' + item.Code + '">' + item.Prefix + ' ' + item.Code + '. ' + item.Name + '. ' + item.Credits + '</li>');
+      $("#class_list").append('<li name="' + item.Prefix + ' ' + item.Code + '">' + item.Prefix + ' ' + item.Code + '. ' + item.Name + '. ' + item.Credits + '</li>');
     });
 }
 

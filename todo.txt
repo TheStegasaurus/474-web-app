@@ -3,12 +3,6 @@ Create SQL query that can join catalog w/ enrollment to show:
     What semester offered
     how many ppl
 
-JORDAN - Click on class to show description and other data
-
-
-//this prob doesnt need to be done
-//SELEct distinct Course_type, Prefix from catalog;
-//solves the problem
 //need to update SOCI and HIST
 Create sql script the create table that has prefix, actual name (EX: CS, Computer Science)
     This info can be found on the old jmu catalog page. 
@@ -23,12 +17,32 @@ Create tree dynamically
 
 FULL TEXT SEARCH!!!!!!!!!!!!
 
-<<<<<<< HEAD
-
-
-=======
 Justin - Add gravity to directed graph and generate JSON from queries
 Justin - (given time) use tree layout to generate single class dependencies
 
 jordan - only add prereqs that are in the same major
->>>>>>> 6b8407195c4c88194977f88d6edde63c2008c0f4
+
+
+
+THIS IS FOR FILTERING CLASSES THAT HAVE NOT ACTUALLY BEEN OFFERED!!!!!!!!!!
+SELECT c.prefix, c.code
+FROM catalog as c
+	LEFT JOIN enrollment AS e on c.prefix = e.subject and c.code = e.number
+where prefix = 'CS'
+and e.nbr is null
+order by c.code
+
+
+
+THIS IS FOR SEEING IF A CLASS FILLS UP!!!!
+SELECT *
+FROM avg_seats_left('CS')
+where avg_left < 2
+order by number
+
+
+
+
+info to display
+program_usage
+pie graph to show proffesors that have tought the course
