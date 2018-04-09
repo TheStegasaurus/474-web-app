@@ -5,13 +5,23 @@ Create SQL query that can join catalog w/ enrollment to show:
 
 JORDAN - Click on class to show description and other data
 
+
+//this prob doesnt need to be done
+//SELEct distinct Course_type, Prefix from catalog;
+//solves the problem
+//need to update SOCI and HIST
 Create sql script the create table that has prefix, actual name (EX: CS, Computer Science)
     This info can be found on the old jmu catalog page. 
     Put this into a csv.
     import into our postgress
     Then export to csv from postgress
     Examples of all of this can be found in our project
+    
+    
 
 Create tree dynamically
 
 FULL TEXT SEARCH!!!!!!!!!!!!
+
+
+

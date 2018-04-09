@@ -37,7 +37,7 @@ function makeUrl(id) {
 }
 
 app.get('/classes/:major', (req, res) => {
-  var d = db.query('SELECT DISTINCT Prefix, Code, Name, Credits FROM catalog WHERE Prefix = ? ORDER BY Code', 
+  db.query('SELECT DISTINCT Prefix, Code, Name, Credits FROM catalog WHERE Prefix = ? ORDER BY Code', 
     [req.params.major],
     (err, rows) => {
     if (err) {
@@ -54,6 +54,33 @@ app.get('/classes/:major', (req, res) => {
       res.json(result);
     }
   });
+});
+
+app.get('/class/:major/:number', (req, res) => {
+
+  db.query('SELECT Description FROM catalog WHERE Prefix = ? AND Code = ?', 
+    [req.params.major, req.params.number],
+    (err, rows) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.json(rows[0].Description);
+    }
+  });
+
+
+
+/*
+
+
+var result = '';
+result += req.params.major;
+result += " ";
+result += req.params.number;
+
+res.json(result);
+*/
+
   //console.log(d.sql);
 });
 
