@@ -16,7 +16,7 @@ Create tree dynamically
 
 FULL TEXT SEARCH!!!!!!!!!!!!
 
-
-
+Justin - Add gravity to directed graph and generate JSON from queries
+Justin - (given time) use tree layout to generate single class dependencies
 
 jordan - only add prereqs that are in the same major
