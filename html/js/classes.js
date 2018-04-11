@@ -26,7 +26,7 @@ $(document).ready(function() {
     var search_term = $("#txtSearch").val();
 
     removeList();
-    
+
     if (search_term != "") {
       $.ajax({
         url: URL + "classes/" + search_term,
@@ -41,7 +41,6 @@ $(document).ready(function() {
 //The on-click function for the class list
 $("#major_text").on('click','li',function (){
   var id = $(this).attr('name').split(" ");
-   // alert(id[0] + " " + id[1]);
     
     $.ajax({
       url: URL + "class/" + id[0] + "/" + id[1],
@@ -57,7 +56,12 @@ $("#major_text").on('click','li',function (){
 
 //Updates the right side with info
 function updateClassInfo (info) {
-  document.getElementById("class_info").innerHTML= info;
+  if (info[0].Description == "")
+    info[0].Description = "No description found";
+  
+  document.getElementById("class_description").innerHTML= info[0].Description;
+  document.getElementById("class_title").innerHTML= info[0].Name;
+  document.getElementById("class_program").innerHTML= info[0].Program;
 }
 
 //Removes the list of items on the left
@@ -70,7 +74,21 @@ function removeList() {
 //Sets the bullets to contain the info from the search
 function setClasses (classes) {
     $.each(classes, function(index, item) {
-      $("#class_list").append('<li name="' + item.Prefix + ' ' + item.Code + '">' + item.Prefix + ' ' + item.Code + '. ' + item.Name + '. ' + item.Credits + '</li>');
+      var code = '<li name="' + item.Prefix + ' ' + item.Code + '">';
+      
+      if (item.Not_offered != null) {
+        code = code + '<font title="This class has not been offered in a while" color="#808080">';
+      }
+      
+      //The extra font tag doesnt get cleaned up cause im lazy
+      code = code + '<u>' + item.Prefix + ' ' + item.Code + '</u>: ' + item.Name + '. ' + item.Credits + "</font>";
+      
+      if (item.Fills != null) {
+        code = code + ' <img src="exclamation-mark.png" alt="Mountain View" title="This class tends to fill up!">';
+      }
+      
+      code = code + '</li>';
+      $("#class_list").append(code);
     });
 }
 
