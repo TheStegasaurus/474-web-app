@@ -137,7 +137,7 @@ app.get('/prereq/:major/:number?', (req, res) => {
 
 if (!req.params.number)
 {
-  
+
   db.query('SELECT * FROM prereq WHERE prefix = ? ORDER BY code', 
     [req.params.major],
     (err, rows) => {
