@@ -2,7 +2,6 @@
 
 var URL = 'https://seeds-jad006.c9users.io:8081/';
 
-var fs = require('fs');
 $(document).ready(function() {
 
 //The search function

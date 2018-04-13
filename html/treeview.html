@@ -25,7 +25,7 @@
   <body>
 
     <div class="container-fluid">
-      <h1>Search by Course/Major</h1>
+      <h1>Search by Major</h1>
           <div class="row">
             <div class="col-xs-10 col-md-10">
               <div class="input-group">
@@ -69,85 +69,163 @@
 		
 <script>
 
-var width = 960,
-    height = 500,
-    radius = 6;
+var finaljson;
 
-var svg = d3.select("#chart").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+$(document).ready(function() {
 
-var force = d3.layout.force()
-    .gravity(0.05)
-    .charge(-3000)
-    .size([width, height]);
+//The search function
+  $("#submit_btn").click(function(e) {
+    
+    var search_term = $("#txtSearch").val();
 
-var drag = force.drag()
-    .on("dragstart", dragstart);
-
-d3.json("graph.json", function(error, json) {
-  if (error) throw error;
-
-  force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
-
-// build the arrow.
-svg.append("svg:defs").selectAll("marker")
-    .data(["end"])      // Different link/path types can be defined here
-  .enter().append("svg:marker")    // This section adds in the arrows
-    .attr("id", String)
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-  .append("svg:path")
-    .attr("d", "M0,-5L10,0L0,5");
-
-  var link = svg.selectAll(".link")
-      .data(json.links)
-      .enter().append("line")
-      .attr("class", "link")
-      .attr("marker-end", "url(#end)");
-
-  var node = svg.selectAll(".node")
-      .data(json.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .call(force.drag);
-
-  node.append("image")
-      .attr("xlink:href", "circle-16.ico")
-      .attr("x", -8)
-      .attr("y", -8)
-      .attr("width", 16)
-      .attr("height", 16);
-
-  node.append("text")
-      .attr("dx", 12)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name });
-
-  node.on('dblclick', function(d) {
-    d3.select(this).classed("fixed", d.fixed = false);
-    //PUT CODE TO DISPLAY CLASS HERE
+    if (search_term != "") {
+      $.ajax({
+        url: URL + "prereq/" + search_term,
+        method: 'GET'
+      })
+      .done(gentree)
+      .fail(displayError);
+    }
   });
 
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  });
 });
+  
+//Generate tree data from json
+function gentree(json){
+//THEA KIN HIST RUS SPAN ARCD ENGR
+    var final = [];
+    var k=0;
+    for(var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        var clss = '{"name": "'+obj.Prefix + ' ' + obj.Code + '"}';    
+        if(!final.includes(clss)){
+            final[k]=clss;
+            k++;
+        }
+    }
+    
+    for(var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        var clss = '{"name": "'+obj.req_prefix + ' ' + obj.req_code + '"}';    
+        if(!final.includes(clss)){
+            final.push(clss);
+        }
+    }
+    
+    final.sort();
+    
+    var links = [];
+    for(var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        var clss = '{"name": "'+obj.req_prefix + ' ' + obj.req_code + '"}';
+        var clss2 = '{"name": "'+obj.Prefix + ' ' + obj.Code + '"}';
+        var source = '{"source": '+ final.indexOf(clss) + ',';
+        var dest = '"target": '+ final.indexOf(clss2) + '}';     
+        var link = source + dest;
+        if(!links.includes(link)){
+            links.push(link);
+        }
+    }
+    
+    
+    links.sort();
+    
+    finaljson = '{"nodes":['+final+'],"links":['+links+']}';
 
-function dragstart(d) {
-  d3.select(this).classed("fixed", d.fixed = true);
+   // fs.writeFile("../graph.json", finaljson);
+   // window.location.reload();
+    //console.log(finaljson);
+    
+    var width = 1600,
+        height = 1000,
+        radius = 6;
+    
+    var svg = d3.select("#chart").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+    
+    var force = d3.layout.force()
+        .gravity(0.05)
+        .charge(-1000)
+        .size([width, height]);
+    
+    var drag = force.drag()
+        .on("dragstart", dragstart);
+        
+        
+    
+    d3.json("graph.json", function(error, json) {
+      if (error) throw error;
+      
+      json = JSON.parse(finaljson);
+    
+      force
+          .nodes(json.nodes)
+          .links(json.links)
+          .start();
+    
+    // build the arrow.
+    svg.append("svg:defs").selectAll("marker")
+        .data(["end"])      // Different link/path types can be defined here
+      .enter().append("svg:marker")    // This section adds in the arrows
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 15)
+        .attr("refY", -1.5)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+      .append("svg:path")
+        .attr("d", "M0,-5L10,0L0,5");
+    
+      var link = svg.selectAll(".link")
+          .data(json.links)
+          .enter().append("line")
+          .attr("class", "link")
+          .attr("marker-end", "url(#end)");
+    
+      var node = svg.selectAll(".node")
+          .data(json.nodes)
+        .enter().append("g")
+          .attr("class", "node")
+          .call(force.drag);
+    
+      node.append("image")
+          .attr("xlink:href", "circle-16.ico")
+          .attr("x", -8)
+          .attr("y", -8)
+          .attr("width", 16)
+          .attr("height", 16);
+    
+      node.append("text")
+          .attr("dx", 12)
+          .attr("dy", ".35em")
+          .text(function(d) { return d.name });
+    
+      node.on('dblclick', function(d) {
+        d3.select(this).classed("fixed", d.fixed = false);
+        //PUT CODE TO DISPLAY CLASS HERE
+      });
+    
+      force.on("tick", function() {
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+    
+        node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      });
+    });
+    
+    function dragstart(d) {
+      d3.select(this).classed("fixed", d.fixed = true);
+    }
+
+}
+
+function displayError (err) {
+  alert(JSON.stringify(err));
 }
 
 
