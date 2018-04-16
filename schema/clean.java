@@ -10,13 +10,13 @@ import java.util.regex.Matcher;
 public class clean {
     public static void main(String[] args) throws IOException
     {
-        Scanner scan = new Scanner(System.in); //TODO change this to static file for error handling
+        Scanner scan = new Scanner(System.in);
 
         //To write the output
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream ("prereq.csv"), "utf-8"));
 
         //The regex to find a prefix followed by a number
-        Pattern regex = Pattern.compile("[a-zA-Z]{3,4} \\d{3}?");
+        Pattern regex = Pattern.compile("[a-zA-Z]{2,4} \\d{3}?");
 
         while (scan.hasNextLine())
         {
@@ -29,12 +29,16 @@ public class clean {
 
             //Matches the line to the regex
             Matcher m = regex.matcher(line[2]);
+
             //Loops through each match in the line
             while (m.find()) 
             {
                 //Writes each prereq as a new line in the output
                 String[] prereq = m.group(0).split(" ");
-                writer.write(line[0] + "|" + line[1] + "|" + prereq[0] + "|" + prereq[1] + "\n");
+
+                //Only add prerequisites that are within the major
+                if (line[0].equals(prereq[0]))
+                    writer.write(line[0] + "|" + line[1] + "|" + prereq[0] + "|" + prereq[1] + "\n");
             }
         }
         scan.close();
