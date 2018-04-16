@@ -2,6 +2,10 @@
 /webapp/build/
 /webapp/dist/
 /webapp/nbproject/private/
+<<<<<<< HEAD
 schema/.Rhistory/
 
 *.csv
+=======
+/html/.Rhistory
+>>>>>>> b6a395ddd64a4c7bc7ff94bd4f0ebc6ed56393e3

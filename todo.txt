@@ -1,22 +1,42 @@
-Create SQL query that can join catalog w/ enrollment to show:
-    what classes are actually offered
-    What semester offered
-    how many ppl
-
-JORDAN - Click on class to show description and other data
-
+//need to update SOCI and HIST
 Create sql script the create table that has prefix, actual name (EX: CS, Computer Science)
     This info can be found on the old jmu catalog page. 
     Put this into a csv.
     import into our postgress
-    Then export to csv from postgress
     Examples of all of this can be found in our project
+    
+    
 
 Create tree dynamically
 
 FULL TEXT SEARCH!!!!!!!!!!!!
 
-
-
+Justin - Add gravity to directed graph and generate JSON from queries
+Justin - (given time) use tree layout to generate single class dependencies
 
 jordan - only add prereqs that are in the same major
+
+
+
+THIS IS FOR FILTERING CLASSES THAT HAVE NOT ACTUALLY BEEN OFFERED!!!!!!!!!!
+SELECT distinct c.prefix, c.code
+FROM catalog as c
+	LEFT JOIN enrollment AS e on c.prefix = e.subject and c.code = e.number
+where prefix = 'CS'
+and e.nbr is null
+order by c.code
+
+
+
+THIS IS FOR SEEING IF A CLASS FILLS UP!!!!
+SELECT *
+FROM avg_seats_left('CS')
+where avg_left < 2
+order by number
+
+
+
+
+info to display
+program_usage
+pie graph to show proffesors that have tought the course
