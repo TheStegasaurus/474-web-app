@@ -2,3 +2,6 @@
 /webapp/build/
 /webapp/dist/
 /webapp/nbproject/private/
+schema/.Rhistory/
+
+*.csv
