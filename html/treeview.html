@@ -75,7 +75,7 @@ $(document).ready(function() {
 
 //The search function
   $("#submit_btn").click(function(e) {
-    
+    $("#chart svg").remove();
     var search_term = $("#txtSearch").val();
 
     if (search_term != "") {
@@ -132,6 +132,8 @@ function gentree(json){
     links.sort();
     
     finaljson = '{"nodes":['+final+'],"links":['+links+']}';
+    
+    alert(finaljson);
 
    // fs.writeFile("../graph.json", finaljson);
    // window.location.reload();
@@ -165,62 +167,65 @@ function gentree(json){
           .links(json.links)
           .start();
     
-    // build the arrow.
-    svg.append("svg:defs").selectAll("marker")
-        .data(["end"])      // Different link/path types can be defined here
-      .enter().append("svg:marker")    // This section adds in the arrows
-        .attr("id", String)
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 15)
-        .attr("refY", -1.5)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
-        .attr("orient", "auto")
-      .append("svg:path")
-        .attr("d", "M0,-5L10,0L0,5");
-    
-      var link = svg.selectAll(".link")
-          .data(json.links)
-          .enter().append("line")
-          .attr("class", "link")
-          .attr("marker-end", "url(#end)");
-    
-      var node = svg.selectAll(".node")
-          .data(json.nodes)
-        .enter().append("g")
-          .attr("class", "node")
-          .call(force.drag);
-    
-      node.append("image")
-          .attr("xlink:href", "circle-16.ico")
-          .attr("x", -8)
-          .attr("y", -8)
-          .attr("width", 16)
-          .attr("height", 16);
-    
-      node.append("text")
-          .attr("dx", 12)
-          .attr("dy", ".35em")
-          .text(function(d) { return d.name });
-    
-      node.on('dblclick', function(d) {
-        d3.select(this).classed("fixed", d.fixed = false);
-        //PUT CODE TO DISPLAY CLASS HERE
-      });
-    
-      force.on("tick", function() {
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-    
-        node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-      });
+// build the arrow.
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 21)
+    .attr("refY", -0.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+
+  var link = svg.selectAll(".link")
+      .data(json.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .attr("marker-end", "url(#end)");
+
+  var node = svg.selectAll(".node")
+      .data(json.nodes)
+      .enter().append("svg:circle")
+      .attr("class", "node")
+      .attr("r", 15)
+	  .style("fill", "#FD8D3C")
+      .call(force.drag);
+
+  var labels = svg.selectAll("text")        
+      .data(json.nodes)
+      .enter()
+      .append("text")
+      .attr({"x":function(d){return d.x;},
+		   "y":function(d){return d.y;}})
+      .text(function(d){return d.name.substr(d.name.length - 3);})
+      .call(force.drag);
+
+  node.on('dblclick', function(d) {
+    d3.select(this).classed("fixed", d.fixed = false);
+
+  });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+    labels.attr("x", function(d) { return d.x-10; }).attr("y", function(d) { return d.y+5; }); 
     });
-    
-    function dragstart(d) {
-      d3.select(this).classed("fixed", d.fixed = true);
-    }
+  });
+
+  function dragstart(d) {
+    d3.select(this).classed("fixed", d.fixed = true);
+  }
+
 
 }
 

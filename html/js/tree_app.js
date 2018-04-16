@@ -14,7 +14,7 @@ $(document).ready(function() {
         url: URL + "prereq/" + search_term,
         method: 'GET'
       })
-      .done(gentree)
+      .done()
       .fail(displayError);
     }
   });
