@@ -11,3 +11,6 @@ echo Copying data
 
 echo Finding prereqisites
 ./clean.sh
+
+echo Exporting csv files
+./copy_from_postgress.sh
