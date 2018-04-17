@@ -133,7 +133,7 @@ function gentree(json){
     
     finaljson = '{"nodes":['+final+'],"links":['+links+']}';
     
-    alert(finaljson);
+    //alert(finaljson);
 
    // fs.writeFile("../graph.json", finaljson);
    // window.location.reload();
@@ -170,7 +170,7 @@ function gentree(json){
 // build the arrow.
 svg.append("svg:defs").selectAll("marker")
     .data(["end"])      // Different link/path types can be defined here
-  .enter().append("svg:marker")    // This section adds in the arrows
+    .enter().append("svg:marker")    // This section adds in the arrows
     .attr("id", String)
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 21)
@@ -193,7 +193,7 @@ svg.append("svg:defs").selectAll("marker")
       .enter().append("svg:circle")
       .attr("class", "node")
       .attr("r", 15)
-	  .style("fill", "#FD8D3C")
+	    .style("fill", function(d) { return color(d.name); })
       .call(force.drag);
 
   var labels = svg.selectAll("text")        
@@ -204,6 +204,12 @@ svg.append("svg:defs").selectAll("marker")
 		   "y":function(d){return d.y;}})
       .text(function(d){return d.name.substr(d.name.length - 3);})
       .call(force.drag);
+      
+  // svg.selectAll('.node')  //here's how you get all the nodes
+  //   .each(function(d) {
+  //     d3.select(this);
+  //     if(d.name.substr(d.name.length - 3, d.name.length - 2) == 1)false; //100 level classes 
+  // });
 
   node.on('dblclick', function(d) {
     d3.select(this).classed("fixed", d.fixed = false);
@@ -225,8 +231,15 @@ svg.append("svg:defs").selectAll("marker")
   function dragstart(d) {
     d3.select(this).classed("fixed", d.fixed = true);
   }
+}
 
-
+function color(name){
+    if(name.substr(name.length-3).startsWith("1")) return "#fff68f"; //100 level  
+    else if(name.substr(name.length-3).startsWith("2")) return "#cdb5e4"; //200 level 
+    else if(name.substr(name.length-3).startsWith("3")) return "#deb887"; //300 level 
+    else if(name.substr(name.length-3).startsWith("4")) return "#ff7f7f"; //400 level 
+    else if(name.substr(name.length-3).startsWith("5")) return "#66cccc"; //500 level 
+    else return "#deb887"; //other classes 
 }
 
 function displayError (err) {

@@ -137,9 +137,10 @@ app.get('/prereq/:major/:number?', (req, res) => {
 
 if (!req.params.number)
 {
-
-  db.query('SELECT * FROM prereq WHERE prefix = ? ORDER BY code', 
-    [req.params.major],
+//SELECT * FROM prereq WHERE prefix = ? ORDER BY code
+  db.query('SELECT * FROM prereq AS p JOIN (SELECT DISTINCT c.code FROM catalog AS c LEFT JOIN enrollment AS e ON c.prefix = e.subject'+
+  ' AND c.code = e.number WHERE prefix = ? AND e.nbr IS not null) AS sub ON sub.code = p.code WHERE p.prefix = ? ORDER BY p.code', 
+    [req.params.major, req.params.major],
     (err, rows) => {
     if (err) {
       res.status(500).json(err);
@@ -179,6 +180,32 @@ else
     });
 }
 
+});
+
+
+app.get('/instructor/:major/:class', (req, res) => {
+
+  db.query('SELECT Instructor, count(*) AS count ' +
+            'FROM (SELECT distinct term, nbr, Instructor ' +
+            'FROM enrollment ' +
+            'WHERE subject = ? ' +
+            'AND number = ?) AS sub ' +
+            'GROUP BY Instructor ' +
+            'ORDER BY Instructor',
+    [req.params.major, req.params.class],
+    (err, rows) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      let result = rows.map(row =>
+        ({
+           Instructor: row.Instructor,
+           Count: row.count
+         })
+      );
+      res.json(result);
+    }
+  });
 });
 
 
